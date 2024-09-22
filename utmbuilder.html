@@ -1,0 +1,139 @@
+<!--
+© 2023 David Soden. All rights reserved.
+This application is free to use so long as it is not used for illegal purposes, and this copyright notice is retained.
+If you would like to remove this notice, please send $25 (for each domain) to David Soden at https://www.paypal.com/ncp/payment/FAMZYVDJBCB4Y
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>UTM URL Builder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        #utm-form {
+            max-width: 50%;
+            margin: 40px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #utm-form label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        #utm-form input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+        }
+
+        #utm-form button[type="button"] {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        #utm-form button[type="button"]:hover {
+            background-color: #3e8e41;
+        }
+
+        #utm-output {
+            margin-top: 20px;
+        }
+
+        #utm-output textarea {
+            width: 90%;
+            height: 100px;
+            padding: 10px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="utm-form">
+        <h1>UTM URL Builder</h1>
+        <a href="https://davidsoden.com" target="_blank"><img src="https://davidsoden.com/wp-content/uploads/2023/09/240.png" alt="© David Soden" width="100"></a>
+        <form>
+            <label for="url">Base URL:</label>
+            <input type="text" id="url" name="url" value="">
+
+            <label for="utm_source">UTM Source:</label>
+            <input type="text" id="utm_source" name="utm_source" value="">
+
+            <label for="utm_medium">UTM Medium:</label>
+            <input type="text" id="utm_medium" name="utm_medium" value="">
+
+            <label for="utm_campaign">UTM Campaign:</label>
+            <input type="text" id="utm_campaign" name="utm_campaign" value="">
+
+            <label for="utm_content">UTM Content:</label>
+            <input type="text" id="utm_content" name="utm_content" value="">
+
+            <label for="utm_term">UTM Term:</label>
+            <input type="text" id="utm_term" name="utm_term" value="">
+
+            <label for="utm_id">UTM ID:</label>
+            <input type="text" id="utm_id" name="utm_id" value="">
+
+            <label for="utm_cid">UTM CID:</label>
+            <input type="text" id="utm_cid" name="utm_cid" value="">
+
+            <br>
+            <button type="button" id="generate-url">Generate UTM URL</button>
+        </form>
+    </div>
+
+    <div id="utm-output">
+        <h2>Generated UTM URL:</h2>
+        <textarea id="utm-url" readonly></textarea>
+        <br>
+        <button onclick="copyToClipboard()">Copy to Clipboard</button>
+    </div>
+
+    <script>
+        const urlInput = document.getElementById("url");
+        const utmParams = {
+            utm_source: document.getElementById("utm_source"),
+            utm_medium: document.getElementById("utm_medium"),
+            utm_campaign: document.getElementById("utm_campaign"),
+            utm_content: document.getElementById("utm_content"),
+            utm_term: document.getElementById("utm_term"),
+            utm_id: document.getElementById("utm_id"),
+            utm_cid: document.getElementById("utm_cid")
+        };
+        const textarea = document.getElementById("utm-url");
+        const generateButton = document.getElementById("generate-url");
+
+        generateButton.addEventListener("click", () => {
+            const baseUrl = urlInput.value;
+            const utmQueryString = Object.keys(utmParams).map((key) => {
+                const value = utmParams[key].value;
+                if (value) {
+                    // Encode the value with encodeURIComponent and then replace %20 with +
+                    return `${key}=${encodeURIComponent(value).replace(/%20/g, '+')}`;
+                }
+                return null;
+            }).filter((x) => x).join("&");
+            const fullUrl = `${baseUrl}?${utmQueryString}`;
+            textarea.value = fullUrl;
+        });
+
+        function copyToClipboard() {
+            textarea.select();
+            document.execCommand("copy");
+        }
+    </script>
+</body>
+
+</html>
