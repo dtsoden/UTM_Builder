@@ -4,102 +4,163 @@ This application is free to use so long as it is not used for illegal purposes, 
 If you would like to remove this notice, please send $25 (for each domain) to David Soden at https://www.paypal.com/ncp/payment/FAMZYVDJBCB4Y
 -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UTM URL Builder</title>
+    <!-- Load Bootstrap from CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
         }
 
         #utm-form {
-            max-width: 50%;
-            margin: 40px auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
         }
 
-        #utm-form label {
+        #utm-form h1 {
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .logo {
             display: block;
-            margin-bottom: 10px;
+            margin: 0 auto 20px auto;
+            max-width: 150px;
+            height: auto;
         }
 
-        #utm-form input[type="text"] {
-            width: 80%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
+        .form-label {
+            font-weight: 500;
         }
 
-        #utm-form button[type="button"] {
-            background-color: #4CAF50;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
+        .btn-primary, .btn-secondary {
+            background-color: #156082;
+            border-color: #156082;
         }
 
-        #utm-form button[type="button"]:hover {
-            background-color: #3e8e41;
+        .btn-primary:hover, .btn-secondary:hover {
+            background-color: #0e455f;
+            border-color: #0e455f;
         }
 
-        #utm-output {
-            margin-top: 20px;
+        /* Custom modal height for modal-content */
+        .modal-content {
+            height: 60vh; /* Adjust the height as needed */
+            display: flex;
+            flex-direction: column;
         }
 
-        #utm-output textarea {
-            width: 90%;
-            height: 100px;
-            padding: 10px;
-            font-family: monospace;
+        /* Ensure the modal body fits within the modal content */
+        .modal-body {
+            flex: 1; /* Makes the body expand to fit the available space */
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Apply the 40vh height to the textarea as per the reference */
+        #utm-url {
+            flex: 1; /* Allow the textarea to take available space in modal body */
+            height: 40vh; /* As per your reference */
+            resize: none; /* Disable resizing */
+        }
+
+        .modal-footer {
+            justify-content: flex-end;
         }
     </style>
 </head>
 
 <body>
-    <div id="utm-form">
-        <h1>UTM URL Builder</h1>
-        <a href="https://davidsoden.com" target="_blank"><img src="https://davidsoden.com/wp-content/uploads/2023/09/240.png" alt="© David Soden" width="100"></a>
-        <form>
-            <label for="url">Base URL:</label>
-            <input type="text" id="url" name="url" value="">
 
-            <label for="utm_source">UTM Source:</label>
-            <input type="text" id="utm_source" name="utm_source" value="">
+    <div class="container">
+        <div id="utm-form" class="col-md-8 offset-md-2">
+            <!-- Updated logo -->
+            <img src="https://georgiadigitalprofiles.com/wp-content/uploads/2024/05/MainLogo.png" alt="Georgia Digital Profiles Logo" class="logo">
+            
+            <h1>UTM URL Builder</h1>
+            <form>
+                <div class="form-group">
+                    <label for="url" class="form-label">Base URL:</label>
+                    <input type="text" id="url" name="url" class="form-control" placeholder="Enter base URL" value="">
+                </div>
 
-            <label for="utm_medium">UTM Medium:</label>
-            <input type="text" id="utm_medium" name="utm_medium" value="">
+                <div class="form-group">
+                    <label for="utm_source" class="form-label">UTM Source:</label>
+                    <input type="text" id="utm_source" name="utm_source" class="form-control" placeholder="Enter UTM source" value="">
+                </div>
 
-            <label for="utm_campaign">UTM Campaign:</label>
-            <input type="text" id="utm_campaign" name="utm_campaign" value="">
+                <div class="form-group">
+                    <label for="utm_medium" class="form-label">UTM Medium:</label>
+                    <input type="text" id="utm_medium" name="utm_medium" class="form-control" placeholder="Enter UTM medium" value="">
+                </div>
 
-            <label for="utm_content">UTM Content:</label>
-            <input type="text" id="utm_content" name="utm_content" value="">
+                <div class="form-group">
+                    <label for="utm_campaign" class="form-label">UTM Campaign:</label>
+                    <input type="text" id="utm_campaign" name="utm_campaign" class="form-control" placeholder="Enter UTM campaign" value="">
+                </div>
 
-            <label for="utm_term">UTM Term:</label>
-            <input type="text" id="utm_term" name="utm_term" value="">
+                <div class="form-group">
+                    <label for="utm_content" class="form-label">UTM Content:</label>
+                    <input type="text" id="utm_content" name="utm_content" class="form-control" placeholder="Enter UTM content" value="">
+                </div>
 
-            <label for="utm_id">UTM ID:</label>
-            <input type="text" id="utm_id" name="utm_id" value="">
+                <div class="form-group">
+                    <label for="utm_term" class="form-label">UTM Term:</label>
+                    <input type="text" id="utm_term" name="utm_term" class="form-control" placeholder="Enter UTM term" value="">
+                </div>
 
-            <label for="utm_cid">UTM CID:</label>
-            <input type="text" id="utm_cid" name="utm_cid" value="">
+                <div class="form-group">
+                    <label for="utm_id" class="form-label">UTM ID:</label>
+                    <input type="text" id="utm_id" name="utm_id" class="form-control" placeholder="Enter UTM ID" value="">
+                </div>
 
-            <br>
-            <button type="button" id="generate-url">Generate UTM URL</button>
-        </form>
+                <div class="form-group">
+                    <label for="utm_cid" class="form-label">UTM CID:</label>
+                    <input type="text" id="utm_cid" name="utm_cid" class="form-control" placeholder="Enter UTM CID" value="">
+                </div>
+
+                <button type="button" class="btn btn-primary btn-block" id="generate-url">Generate UTM URL</button>
+            </form>
+        </div>
     </div>
 
-    <div id="utm-output">
-        <h2>Generated UTM URL:</h2>
-        <textarea id="utm-url" readonly></textarea>
-        <br>
-        <button onclick="copyToClipboard()">Copy to Clipboard</button>
+    <!-- Modal for Generated UTM URL -->
+    <div class="modal fade" id="utmModal" tabindex="-1" aria-labelledby="utmModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content"> <!-- Applied modal-content height change here -->
+                <div class="modal-header">
+                    <h5 class="modal-title" id="utmModalLabel">Generated UTM URL</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="utm-url" class="form-control" readonly></textarea>
+                    <small id="copy-success" class="text-success" style="display:none;">Copied to clipboard!</small>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="copy-button">Copy to Clipboard</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
         const urlInput = document.getElementById("url");
@@ -114,26 +175,39 @@ If you would like to remove this notice, please send $25 (for each domain) to Da
         };
         const textarea = document.getElementById("utm-url");
         const generateButton = document.getElementById("generate-url");
+        const copyButton = document.getElementById("copy-button");
+        const copySuccessMessage = document.getElementById("copy-success");
 
         generateButton.addEventListener("click", () => {
             const baseUrl = urlInput.value;
             const utmQueryString = Object.keys(utmParams).map((key) => {
                 const value = utmParams[key].value;
                 if (value) {
-                    // Encode the value with encodeURIComponent and then replace %20 with +
                     return `${key}=${encodeURIComponent(value).replace(/%20/g, '+')}`;
                 }
                 return null;
             }).filter((x) => x).join("&");
             const fullUrl = `${baseUrl}?${utmQueryString}`;
             textarea.value = fullUrl;
+
+            // Show modal with generated UTM URL
+            $('#utmModal').modal('show');
         });
 
-        function copyToClipboard() {
+        copyButton.addEventListener("click", () => {
             textarea.select();
             document.execCommand("copy");
-        }
+
+            // Show success message
+            copySuccessMessage.style.display = 'block';
+
+            // Hide success message after 2 seconds
+            setTimeout(() => {
+                copySuccessMessage.style.display = 'none';
+            }, 2000);
+        });
     </script>
+
 </body>
 
 </html>
