@@ -25,11 +25,6 @@ To get started with UTM Builder, simply:
 * Install the dependencies
 * Run the application locally
 
-## Screenshots
-
-![UTM Builder Screenshot](screenshot1.png)
-![UTM Builder Screenshot](screenshot2.png)
-
 ## Contribute
 
 UTM Builder is an open-source project, and we welcome contributions from the community. If you'd like to get involved, please:
